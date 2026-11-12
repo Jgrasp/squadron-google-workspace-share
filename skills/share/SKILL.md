@@ -116,7 +116,7 @@ Stop the server when done.
 python3 W/kit/scripts/share.py deploy W "<artifact title>"
 ```
 
-The last line is the `/exec` link. `W/deploy.json` keeps it: never delete it, the next deploy would give a new link. Then call `publish_artifact` as the prompt says, and tell the user:
+The last line is the `/exec` link, in the domain's form `https://script.google.com/a/macros/<domain>/s/<id>/exec`, the domain being that of the clasp account. Publish that one: the short form `https://script.google.com/macros/s/<id>/exec` fails with « Unable to open the file » as soon as the browser's default Google account is not the domain's. `W/deploy.json` keeps it: never delete it, the next deploy would give a new link. Then call `publish_artifact` as the prompt says, and tell the user:
 
 - to open the link once to grant the OAuth access, which no tool can do;
 - to check from a second account of the domain that a change shows;
@@ -125,4 +125,5 @@ The last line is the `/exec` link. `W/deploy.json` keeps it: never delete it, th
 ## Never
 
 - share with "Anyone": the page may hold test accounts or internal URLs;
-- give the `/dev` link, which only the project's editors open.
+- give the `/dev` link, which only the project's editors open;
+- publish the short `/macros/s/<id>/exec` form for a Workspace domain: only a `gmail.com` account uses it.

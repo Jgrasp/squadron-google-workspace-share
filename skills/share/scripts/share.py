@@ -27,9 +27,17 @@ def run(args, cwd, quiet=False):
 
 
 def logged_in(work):
-    out = run(["--json", "show-authorized-user"], work, quiet=True)
-    if not json.loads(out or "{}").get("loggedIn"):
+    user = json.loads(run(["--json", "show-authorized-user"], work, quiet=True) or "{}")
+    if not user.get("loggedIn"):
         sys.exit("clasp is not logged in: run clasp login in a terminal")
+    return user.get("email") or ""
+
+
+def link(dep, email):
+    domain = email.split("@")[1] if "@" in email else ""
+    if not domain or domain == "gmail.com":
+        return f"https://script.google.com/macros/s/{dep}/exec"
+    return f"https://script.google.com/a/macros/{domain}/s/{dep}/exec"
 
 
 def state(work):
@@ -48,7 +56,7 @@ def deploy(work, title, description):
     for name in FILES:
         if not (work / name).is_file():
             sys.exit(f"{work / name} is missing")
-    logged_in(work)
+    email = logged_in(work)
     if not (work / ".clasp.json").exists():
         with tempfile.TemporaryDirectory() as tmp:
             run(["create", "--type", "webapp", "--title", title, "--rootDir", "."], tmp)
@@ -64,7 +72,7 @@ def deploy(work, title, description):
     out = run(["--json", "deploy", "-d", description] + (["-i", known] if known else []), work)
     dep = deployment_id(out)
     script = json.loads((work / ".clasp.json").read_text())["scriptId"]
-    url = f"https://script.google.com/macros/s/{dep}/exec"
+    url = link(dep, email)
     (work / "deploy.json").write_text(json.dumps({"scriptId": script, "deploymentId": dep, "url": url, "title": title}, indent=2))
     print(url)
 
