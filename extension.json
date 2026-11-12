@@ -1,0 +1,38 @@
+{
+  "id": "workspace-share",
+  "version": "0.1.0",
+  "api": 1,
+  "name": { "en": "Google Workspace share", "fr": "Partage Google Workspace" },
+  "description": {
+    "en": "Shares an html artifact with your team as a Google Apps Script web app, with a state everyone edits together",
+    "fr": "Partage un artifact html avec votre équipe en app web Google Apps Script, avec un état que tout le monde modifie ensemble"
+  },
+  "wasm": "target/wasm32-wasip2/release/workspace_share.wasm",
+  "permissions": { "exec": ["python3"] },
+  "contributes": {
+    "skills": ["skills/share"],
+    "items": [
+      {
+        "slot": "artifact.actions",
+        "id": "team",
+        "label": { "en": "Share with the team", "fr": "Partager avec l’équipe" },
+        "hint": { "en": "Google web app for the accounts of your Workspace domain", "fr": "App web Google pour les comptes de votre domaine Workspace" },
+        "action": {
+          "artifact.share": {
+            "confirm": {
+              "en": "An agent of its own turns “{artifact.title}” into a Google web app that only the accounts of your Workspace domain can open, and deploys it from your Google account.",
+              "fr": "Un agent dédié transforme « {artifact.title} » en app web Google que seuls les comptes de votre domaine Workspace peuvent ouvrir, et la déploie depuis votre compte Google."
+            },
+            "lines": ["Google Apps Script · clasp", "python3, clasp login"],
+            "shared": { "en": "Shared with the team", "fr": "Partagé avec l’équipe" },
+            "share": "Use the workspace-share:share skill to share the artifact {artifact.id} “{artifact.title}” with the team. Its files are in {artifact.dir}, its page is {artifact.entry}. Work in {extension.data}/sites/{agent.id}-{artifact.id}. Once it is deployed, call publish_artifact with id {artifact.id}, destination {destination} and the /exec link.",
+            "update": { "tool": "update" },
+            "unshare": { "tool": "unshare" },
+            "delete": { "en": "Also delete the Apps Script project", "fr": "Supprimer aussi le projet Apps Script" },
+            "deleteHint": { "en": "What the team entered is deleted with it.", "fr": "Ce que l’équipe a saisi est supprimé avec lui." }
+          }
+        }
+      }
+    ]
+  }
+}
