@@ -322,7 +322,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "workspace_share"
+name = "google_workspace_share"
 version = "0.1.0"
 dependencies = [
  "serde",

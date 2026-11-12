@@ -1,4 +1,4 @@
-# Google Workspace share
+# Artifact share on Google Workspace
 
 A [Squadron](https://github.com/Jgrasp/squadron) extension that shares an html artifact with your team as a Google Apps Script web app. Everyone opens the same page, and what one person changes (a status, a checkbox, a note) shows for the others, with who changed it and when. Only the accounts of your Google Workspace domain can open it.
 
@@ -24,7 +24,7 @@ The first time you open a shared link, Google asks you to grant the web app its 
 ## What it asks Squadron for
 
 - `python3`, with any arguments: Update and Stop sharing run `share.py`, which calls clasp;
-- the skill `workspace-share:share` for your agents.
+- the skill `google-workspace-share:share` for your agents.
 
 The working files of each shared artifact stay in the extension's data folder, under `sites/<agent>-<artifact>`.
 
