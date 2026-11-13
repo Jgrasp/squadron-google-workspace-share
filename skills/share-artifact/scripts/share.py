@@ -17,8 +17,12 @@ def clasp():
     sys.exit("clasp is missing: npm i -g @google/clasp")
 
 
+def call(args, cwd):
+    return subprocess.run(clasp() + args, cwd=cwd, capture_output=True, text=True)
+
+
 def run(args, cwd, quiet=False):
-    done = subprocess.run(clasp() + args, cwd=cwd, capture_output=True, text=True)
+    done = call(args, cwd)
     if done.returncode:
         sys.exit(f"clasp {' '.join(args)}: {done.stderr.strip() or done.stdout.strip()}")
     if not quiet:
@@ -89,9 +93,13 @@ def stop(work, delete):
     known = state(work)
     if known.get("deploymentId"):
         logged_in(work)
-        run(["undeploy", known["deploymentId"]], work)
+        dep = known["deploymentId"]
+        if call(["undeploy", dep], work).returncode and dep in run(["list-deployments"], work, quiet=True):
+            run(["undeploy", dep], work)
     if delete and (work / ".clasp.json").exists():
-        run(["delete-script", json.loads((work / ".clasp.json").read_text())["scriptId"], "--force"], work)
+        script = json.loads((work / ".clasp.json").read_text())["scriptId"]
+        if call(["delete-script", script, "--force"], work).returncode:
+            print(f"Google kept the project: https://script.google.com/d/{script}/edit", file=sys.stderr)
         (work / ".clasp.json").unlink()
     (work / "deploy.json").unlink(missing_ok=True)
     if delete:

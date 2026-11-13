@@ -1,6 +1,6 @@
 {
   "id": "google-workspace-share",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "api": 1,
   "name": { "en": "Artifact share on Google Workspace", "fr": "Partage d’artifacts sur Google Workspace" },
   "description": {
@@ -29,7 +29,7 @@
             "update": { "tool": "update" },
             "unshare": { "tool": "unshare" },
             "delete": { "en": "Also delete the Apps Script project", "fr": "Supprimer aussi le projet Apps Script" },
-            "deleteHint": { "en": "What the team entered is deleted with it.", "fr": "Ce que l’équipe a saisi est supprimé avec lui." },
+            "deleteHint": { "en": "What the team entered goes with it. When Google refuses to delete it, it stays in your Drive.", "fr": "Ce que l’équipe a saisi part avec lui. Si Google refuse de le supprimer, il reste dans votre Drive." },
             "cleanup": { "days": 90 }
           }
         }
