@@ -1,6 +1,7 @@
 {
   "id": "google-workspace-share",
   "version": "0.2.1",
+  "squadron": ">=0.45.0",
   "api": 1,
   "name": { "en": "Artifact share on Google Workspace", "fr": "Partage d’artifacts sur Google Workspace" },
   "description": {
