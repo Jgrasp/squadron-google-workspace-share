@@ -94,6 +94,8 @@ def stop(work, delete):
         run(["delete-script", json.loads((work / ".clasp.json").read_text())["scriptId"], "--force"], work)
         (work / ".clasp.json").unlink()
     (work / "deploy.json").unlink(missing_ok=True)
+    if delete:
+        shutil.rmtree(work, ignore_errors=True)
 
 
 def main():

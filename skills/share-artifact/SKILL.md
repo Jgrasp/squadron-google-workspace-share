@@ -1,11 +1,37 @@
 ---
-name: share
+name: share-artifact
 description: Turns a Squadron html artifact that keeps its state in localStorage into a Google Apps Script web app shared with the accounts of the user's Google Workspace domain, with a common state synced between them. Use when Squadron's Share menu asks to share an artifact with the team.
+context: fork
+model: sonnet
+background: false
 ---
 
 # Share an artifact with the team on Google Workspace
 
-The prompt gives the artifact's folder and page, and a work folder `W`. The result is a web app whose page is the artifact itself. Apps Script serves the page and keeps the shared state in its script properties. Only accounts of the user's Workspace domain can open it. Without `google`, the same page falls back to its own local mode.
+Arguments: $ARGUMENTS
+
+They give the artifact's id, title, folder and page, the work folder `W` and the Share menu destination. The user already agreed, in Squadron, to deploy the artifact from their Google account: do the whole share without asking anything. You cannot ask questions; Squadron shows the user your permission requests.
+
+## Progress
+
+Squadron's Artifacts panel shows your steps. At the start of each step below, call `mcp__squadron-pilot__set_progress` with `artifact` (the artifact's id), `total` 6, `done` (the steps already finished, 0 to 5) and `message` (the step's name, in the language of the artifact's page):
+
+1. Checking the tools (section 0);
+2. Reading the artifact (sections 1 and 2);
+3. Writing the sync layer (section 3);
+4. Writing the server (section 4);
+5. Testing with two users (section 5);
+6. Deploying (section 6).
+
+When `set_progress` gives an error, go on without it.
+
+## When it fails
+
+Stop at the first step you cannot finish, without a workaround. Your last reply is then one sentence that says why and what the user does, such as “clasp is not logged in: run `! clasp login` in Squadron, then share again.” Squadron shows that sentence in the panel.
+
+## The work
+
+The result is a web app whose page is the artifact itself. Apps Script serves the page and keeps the shared state in its script properties. Only accounts of the user's Workspace domain can open it. Without `google`, the same page falls back to its own local mode.
 
 `KIT` is the folder of this skill. Files:
 
@@ -116,7 +142,7 @@ Stop the server when done.
 python3 W/kit/scripts/share.py deploy W "<artifact title>"
 ```
 
-The last line is the `/exec` link, in the domain's form `https://script.google.com/a/macros/<domain>/s/<id>/exec`, the domain being that of the clasp account. Publish that one: the short form `https://script.google.com/macros/s/<id>/exec` fails with « Unable to open the file » as soon as the browser's default Google account is not the domain's. `W/deploy.json` keeps it: never delete it, the next deploy would give a new link. Then call `publish_artifact` as the prompt says, and tell the user:
+The last line is the `/exec` link, in the domain's form `https://script.google.com/a/macros/<domain>/s/<id>/exec`, the domain being that of the clasp account. Publish that one: the short form `https://script.google.com/macros/s/<id>/exec` fails with « Unable to open the file » as soon as the browser's default Google account is not the domain's. `W/deploy.json` keeps it: never delete it, the next deploy would give a new link. Then call `mcp__squadron-pilot__publish_artifact` with `id` the artifact's id, `destination` the destination from the arguments and `link` that link. Your last reply tells the user, briefly:
 
 - to open the link once to grant the OAuth access, which no tool can do;
 - to check from a second account of the domain that a change shows;

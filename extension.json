@@ -1,6 +1,6 @@
 {
   "id": "google-workspace-share",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "api": 1,
   "name": { "en": "Artifact share on Google Workspace", "fr": "Partage d’artifacts sur Google Workspace" },
   "description": {
@@ -10,7 +10,7 @@
   "wasm": "target/wasm32-wasip2/release/google_workspace_share.wasm",
   "permissions": { "exec": ["python3"] },
   "contributes": {
-    "skills": ["skills/share"],
+    "skills": ["skills/share-artifact"],
     "items": [
       {
         "slot": "artifact.actions",
@@ -20,16 +20,17 @@
         "action": {
           "artifact.share": {
             "confirm": {
-              "en": "An agent of its own turns “{artifact.title}” into a Google web app that only the accounts of your Workspace domain can open, and deploys it from your Google account.",
-              "fr": "Un agent dédié transforme « {artifact.title} » en app web Google que seuls les comptes de votre domaine Workspace peuvent ouvrir, et la déploie depuis votre compte Google."
+              "en": "A subagent on Sonnet turns “{artifact.title}” into a Google web app that only the accounts of your Workspace domain can open, and deploys it from your Google account.",
+              "fr": "Un sous-agent sur Sonnet transforme « {artifact.title} » en app web Google que seuls les comptes de votre domaine Workspace peuvent ouvrir, et la déploie depuis votre compte Google."
             },
             "lines": ["Google Apps Script · clasp", "python3, clasp login"],
             "shared": { "en": "Shared with the team", "fr": "Partagé avec l’équipe" },
-            "share": "Use the google-workspace-share:share skill to share the artifact {artifact.id} “{artifact.title}” with the team. Its files are in {artifact.dir}, its page is {artifact.entry}. Work in {extension.data}/sites/{agent.id}-{artifact.id}. Once it is deployed, call publish_artifact with id {artifact.id}, destination {destination} and the /exec link.",
+            "share": "Call the Skill tool with skill google-workspace-share:share-artifact and args: artifact {artifact.id} “{artifact.title}”, folder {artifact.dir}, page {artifact.entry}, work folder {extension.data}/sites/{agent.id}-{artifact.id}, destination {destination}. Do nothing else: the skill does the whole share and publishes the link.",
             "update": { "tool": "update" },
             "unshare": { "tool": "unshare" },
             "delete": { "en": "Also delete the Apps Script project", "fr": "Supprimer aussi le projet Apps Script" },
-            "deleteHint": { "en": "What the team entered is deleted with it.", "fr": "Ce que l’équipe a saisi est supprimé avec lui." }
+            "deleteHint": { "en": "What the team entered is deleted with it.", "fr": "Ce que l’équipe a saisi est supprimé avec lui." },
+            "cleanup": { "days": 90 }
           }
         }
       }

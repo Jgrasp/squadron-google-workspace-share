@@ -4,11 +4,13 @@ A [Squadron](https://github.com/Jgrasp/squadron) extension that shares an html a
 
 ## Use
 
-In the Artifacts panel, **Share › Share with the team**. An agent of its own reads the artifact, adds the sync layer, tests it with two fake users, deploys it with clasp and gives back the link. Then the same menu gives:
+In the Artifacts panel, **Share › Share with the team**. A subagent on Sonnet, started in the artifact's conversation, reads the artifact, adds the sync layer, tests it with two fake users, deploys it with clasp and gives back the link. Then the same menu gives:
 
 - **Open** and **Copy link**;
 - **Update** once the artifact changed, which deploys the new version at the same link;
 - **Stop sharing**, which takes the web app down, and can delete the Apps Script project with what the team entered.
+
+Its steps show in the Artifacts panel, and its permission requests in the conversation. A shared artifact nobody changes for 90 days is cleaned up: the Apps Script project is deleted with the artifact. Settings › Extensions changes that time, and each artifact's ⋯ menu too.
 
 It fits artifacts whose state is a map of independent elements kept in `localStorage`: test plans, checklists, follow-up tables.
 
@@ -24,7 +26,7 @@ The first time you open a shared link, Google asks you to grant the web app its 
 ## What it asks Squadron for
 
 - `python3`, with any arguments: Update and Stop sharing run `share.py`, which calls clasp;
-- the skill `google-workspace-share:share` for your agents.
+- the skill `google-workspace-share:share-artifact` for your agents.
 
 The working files of each shared artifact stay in the extension's data folder, under `sites/<agent>-<artifact>`.
 
