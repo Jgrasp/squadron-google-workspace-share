@@ -1,5 +1,9 @@
 # Nouveautés
 
+## 0.3.0 · 2026-11-16
+
+- L’extension a son logo, affiché aussi sur l’entrée Partager avec l’équipe.
+
 ## 0.2.1 · 2026-11-13
 
 - Arrêter le partage n’échoue plus quand Google refuse de supprimer le projet Apps Script : le lien est coupé et le projet reste dans votre Drive.

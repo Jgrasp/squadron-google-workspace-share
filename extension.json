@@ -1,8 +1,9 @@
 {
   "id": "google-workspace-share",
-  "version": "0.2.1",
-  "squadron": ">=0.45.0",
+  "version": "0.3.0",
+  "squadron": ">=0.47.0",
   "api": 1,
+  "logo": "logo.svg",
   "name": { "en": "Artifact share on Google Workspace", "fr": "Partage d’artifacts sur Google Workspace" },
   "description": {
     "en": "Shares an html artifact with your team as a Google Apps Script web app, with a state everyone edits together",
@@ -16,6 +17,7 @@
       {
         "slot": "artifact.actions",
         "id": "team",
+        "icon": "logo",
         "label": { "en": "Share with the team", "fr": "Partager avec l’équipe" },
         "hint": { "en": "Google web app for the accounts of your Workspace domain", "fr": "App web Google pour les comptes de votre domaine Workspace" },
         "action": {

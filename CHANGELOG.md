@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0 · 2026-11-16
+
+- The extension has its logo, shown on the Share with the team entry too.
+
 ## 0.2.1 · 2026-11-13
 
 - Stop sharing no longer fails when Google refuses to delete the Apps Script project: the link is cut and the project stays in your Drive.
