@@ -1,6 +1,6 @@
 # Artifact share on Google Workspace
 
-A [Squadron](https://github.com/Jgrasp/squadron) extension that shares an html artifact with your team as a Google Apps Script web app. Everyone opens the same page, and what one person changes (a status, a checkbox, a note) shows for the others, with who changed it and when. Only the accounts of your Google Workspace domain can open it.
+A [Squadron](https://github.com/akki-team/squadron) extension that shares an html artifact with your team as a Google Apps Script web app. Everyone opens the same page, and what one person changes (a status, a checkbox, a note) shows for the others, with who changed it and when. Only the accounts of your Google Workspace domain can open it.
 
 ## Use
 
